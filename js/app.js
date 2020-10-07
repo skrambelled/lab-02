@@ -25,15 +25,12 @@ Animal.prototype.render = function () {
 };
 
 Animal.prototype.addOption = function () {
-  let $option;
   if (($('select').find('.option-' + this.keyword)).length){
     console.log(this.keyword);
     return;
   } 
-  $option = $('<option></option>')
-  $option.text(this.keyword);
+  let $option = $(`<option value='${this.keyword}' class='option-${this.keyword}'>${this.keyword}</option>`);
   $('select').append($option);
-  $option.addClass('option-' + this.keyword);
 }
 
 
@@ -55,9 +52,12 @@ Animal.readJson = () => {
 
 $(() => Animal.readJson());
 
-$('select').on('change', function(event){
-  // $('section').hide();
-  let keyword = event.target.class;
-  console.log(event.target.val());
-
+$('select').on('change', function(){
+  if (this.value === 'default') {
+    $('section').show();
+  } else {
+    $('section').hide();
+    $(`.${this.value}`).show();
+    console.log(this.value);
+  } 
 });

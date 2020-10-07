@@ -11,15 +11,14 @@ function Animal(animal) {
 }
 
 Animal.prototype.render = function () {
-  let $animalClone = $('.photo-template').clone();
+  let $animalClone = $('#photo-template').clone();
   $('main').append($animalClone);
 
   $animalClone.find('h2').text(this.title);
   $animalClone.find('img').attr('src', this.image_url);
   $animalClone.find('p').text(this.description);
   $animalClone.find('img').attr('atl', this.keyword);
-  $animalClone.find('aside').text(this.horns);
-
+  
   $animalClone.removeClass('class');
   $animalClone.attr('class', this.keyword);
 };
@@ -35,27 +34,32 @@ Animal.prototype.addOption = function () {
 
 
 Animal.readJson = () => {
-  const ajaxSettings = {
-    method: 'get',
-    dataType: 'json'
-  };
-
-  $.ajax('data/page-1.json', ajaxSettings)
+    const ajaxSettings = {
+        method: 'get',
+        dataType: 'json'
+    };
+    
+    $.ajax('data/page-1.json', ajaxSettings)
     .then(data => {
-      data.forEach(item => {
-        let animal = new Animal(item);
-        animal.render();
-        animal.addOption();
-      });
-    });
+        data.forEach(item => {
+            let animal = new Animal(item);
+            animal.render();
+            animal.addOption();
+        });
+        $('#photo-template').hide();
+    })
+
 };
 
 $(() => Animal.readJson());
 
+
 $('select').on('change', function(){
   if (this.value === 'default') {
     $('section').show();
-  } else {
+    $('#photo-template').hide();
+} 
+  else {
     $('section').hide();
     $(`.${this.value}`).show();
     console.log(this.value);

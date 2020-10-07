@@ -17,6 +17,10 @@ Navigators: Somya and Yoni
 
 Driver: Somya
 Navigators: Mark and Yoni
+
+* added each animal as option for select menu
+* without duplication
+* hide and showed appropriate animals depending on selection
   
 ## Feature 3: styling the application
 

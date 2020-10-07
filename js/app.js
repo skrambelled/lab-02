@@ -21,8 +21,21 @@ Animal.prototype.render = function () {
   $animalClone.find('aside').text(this.horns);
 
   $animalClone.removeClass('class');
-  $animalClone.attr('class', this.title);
+  $animalClone.attr('class', this.keyword);
 };
+
+Animal.prototype.addOption = function () {
+  let $option;
+  if (($('select').find('.option-' + this.keyword)).length){
+    console.log(this.keyword);
+    return;
+  } 
+  $option = $('<option></option>')
+  $option.text(this.keyword);
+  $('select').append($option);
+  $option.addClass('option-' + this.keyword);
+}
+
 
 Animal.readJson = () => {
   const ajaxSettings = {
@@ -35,8 +48,16 @@ Animal.readJson = () => {
       data.forEach(item => {
         let animal = new Animal(item);
         animal.render();
+        animal.addOption();
       });
     });
 };
 
 $(() => Animal.readJson());
+
+$('select').on('change', function(event){
+  // $('section').hide();
+  let keyword = event.target.class;
+  console.log(event.target.val());
+
+});

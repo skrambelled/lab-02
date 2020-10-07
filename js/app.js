@@ -21,15 +21,15 @@ Animal.prototype.render = function () {
   $animalClone.find('aside').text(this.horns);
 
   $animalClone.removeClass('class');
-  $animalClone.attr('class', this.title);
+  $animalClone.attr('class', this.keyword);
 };
 
 Animal.prototype.addOption = function () {
   let $option;
-  if ($('select').find('.option-' + this.keyword)){
+  if (($('select').find('.option-' + this.keyword)).length){
     console.log(this.keyword);
     return;
-  }
+  } 
   $option = $('<option></option>')
   $option.text(this.keyword);
   $('select').append($option);
@@ -55,4 +55,9 @@ Animal.readJson = () => {
 
 $(() => Animal.readJson());
 
+$('select').on('change', function(event){
+  // $('section').hide();
+  let keyword = event.target.class;
+  console.log(event);
 
+});

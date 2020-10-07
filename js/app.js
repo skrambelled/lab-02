@@ -58,6 +58,6 @@ $(() => Animal.readJson());
 $('select').on('change', function(event){
   // $('section').hide();
   let keyword = event.target.class;
-  console.log(event);
+  console.log(event.target.val());
 
 });
